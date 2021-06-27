@@ -1,0 +1,7 @@
+deepQ module
+============
+
+.. automodule:: deepQ
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to QLearningGame’s documentation! &#8212; QLearningGame 0.0 documentation</title>
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">QLearningGame 0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-qlearninggame-s-documentation">
+<h1>Welcome to QLearningGame’s documentation!<a class="headerlink" href="#welcome-to-qlearninggame-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-main"></span><span class="target" id="module-plots"></span><p>Plotter</p>
+<p>Contains functions that can be used to implement
+various plots.</p>
+<p>This file contains the following functions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>train_time - to plot the time taken to train an agent</p></li>
+</ul>
+</div></blockquote>
+<dl class="function">
+<dt id="plots.train_time">
+<code class="sig-prename descclassname">plots.</code><code class="sig-name descname">train_time</code><span class="sig-paren">(</span><em class="sig-param">times_taken</em><span class="sig-paren">)</span><a class="headerlink" href="#plots.train_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>2D plot: iterations vs. cumulative training time.</p>
+</dd></dl>
+
+<span class="target" id="module-tests"></span><p>Tests</p>
+<p>This file contains the following functions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>test - to test an agent</p></li>
+</ul>
+</div></blockquote>
+<dl class="function">
+<dt id="tests.test">
+<code class="sig-prename descclassname">tests.</code><code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param">Game</em>, <em class="sig-param">agent</em>, <em class="sig-param">init=None</em>, <em class="sig-param">weird=False</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests an agent.</p>
+</dd></dl>
+
+<span class="target" id="module-agents"></span><p>Agents</p>
+<p>This file contains agents that are associated with
+different types of learning algorithms</p>
+<p>Contains the following classes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Agent - parent class</p></li>
+<li><p>QAgent - Q-learning agent</p></li>
+<li><p>DeepAgent - deep Q-learning agent</p></li>
+</ul>
+</div></blockquote>
+<dl class="class">
+<dt id="agents.Agent">
+<em class="property">class </em><code class="sig-prename descclassname">agents.</code><code class="sig-name descname">Agent</code><a class="headerlink" href="#agents.Agent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parent agent class</p>
+<dl class="method">
+<dt id="agents.Agent.get_pos">
+<code class="sig-name descname">get_pos</code><span class="sig-paren">(</span><em class="sig-param">state</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.Agent.get_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets position of car, trophy as int type.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="agents.DeepAgent">
+<em class="property">class </em><code class="sig-prename descclassname">agents.</code><code class="sig-name descname">DeepAgent</code><a class="headerlink" href="#agents.DeepAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deep Q-learning agent</p>
+<dl class="method">
+<dt id="agents.DeepAgent.action">
+<code class="sig-name descname">action</code><span class="sig-paren">(</span><em class="sig-param">state</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.DeepAgent.action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an action for a given state.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="agents.DeepAgent.train">
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">action</em>, <em class="sig-param">reward</em>, <em class="sig-param">new_state</em>, <em class="sig-param">success</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.DeepAgent.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains the bot.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="agents.QAgent">
+<em class="property">class </em><code class="sig-prename descclassname">agents.</code><code class="sig-name descname">QAgent</code><a class="headerlink" href="#agents.QAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Q-learning agent</p>
+<dl class="method">
+<dt id="agents.QAgent.action">
+<code class="sig-name descname">action</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">weird=False</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.QAgent.action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an action for a given state.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="agents.QAgent.train">
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">action</em>, <em class="sig-param">reward</em>, <em class="sig-param">new_state</em>, <em class="sig-param">success</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.QAgent.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains the bot.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-games"></span><p>Games</p>
+<p>This file contains the game defintions.</p>
+<p>Work in progress. At the moment, this
+only contains one game.</p>
+<dl class="class">
+<dt id="games.Game">
+<em class="property">class </em><code class="sig-prename descclassname">games.</code><code class="sig-name descname">Game</code><a class="headerlink" href="#games.Game" title="Permalink to this definition">¶</a></dt>
+<dd><p>Game class</p>
+<dl class="method">
+<dt id="games.Game.get_state">
+<code class="sig-name descname">get_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#games.Game.get_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns current state.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="games.Game.play">
+<code class="sig-name descname">play</code><span class="sig-paren">(</span><em class="sig-param">action</em><span class="sig-paren">)</span><a class="headerlink" href="#games.Game.play" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates state, given an action.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="games.Game.set_state">
+<code class="sig-name descname">set_state</code><span class="sig-paren">(</span><em class="sig-param">state</em><span class="sig-paren">)</span><a class="headerlink" href="#games.Game.set_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set game state explicitly.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-train"></span><p>Training</p>
+<p>This file contains a function that can be used
+to train an agent, given a game.</p>
+<dl class="function">
+<dt id="train.train">
+<code class="sig-prename descclassname">train.</code><code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">Game</em>, <em class="sig-param">agent</em>, <em class="sig-param">episodes=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#train.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains given agent to play the given game.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to QLearningGame’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">QLearningGame 0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Anand Krishnakumar.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
+    </div>
+  </body>
+</html>

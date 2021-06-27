@@ -1,0 +1,14 @@
+QLearningGame
+=============
+
+.. toctree::
+   :maxdepth: 4
+
+   agents
+   config
+   deepQ
+   games
+   main
+   plots
+   tests
+   train
