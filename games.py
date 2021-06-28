@@ -1,3 +1,11 @@
+"""Games
+
+This file contains the game defintions.
+
+Work in progress. At the moment, this
+only contains one game.
+"""
+
 import numpy as np
 from config import X, Y, actions
 
@@ -5,6 +13,8 @@ from config import X, Y, actions
 ################## GAMES ##################
 ###########################################
 class Game:
+    """Game class"""
+    
     def __init__(self):
         # print("Game created")
         self.state = np.zeros((X, Y))
@@ -28,6 +38,7 @@ class Game:
         return None
     
     def play(self, action):
+        """Updates state, given an action."""
         self.moves += 1
         pos = np.where(self.state==1)
         self.state[pos] = 0
@@ -67,7 +78,9 @@ class Game:
         
         
     def get_state(self):
+        """Returns current state."""
         return self.state
     
     def set_state(self, state):
+        """Set game state explicitly."""
         self.state = np.copy(state)

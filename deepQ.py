@@ -13,16 +13,12 @@ from tensorflow import keras
 from tensorflow.keras import layers
 
 def create_network():
+    """Creates a new Keras network for Deep Q-learning."""
     model = keras.Sequential()
-    model.add(keras.Input(shape=(X, Y,)))
-    model.add(layers.Dense(2, activation='relu'))
-    model.add(layers.Dense(1))
+    model.add(keras.Input(shape=(X*Y,)))
+    model.add(layers.Dense(X*Y, activation='relu'))
+    model.add(layers.Dense(len(actions), activation='linear'))
+    
+    model.compile(loss="mean_squared_error", optimizer='rmsprop')
     
     return model
-
-def deepQtrain(Game, agent, episodes=1000):
-    """Deep Q-learning training"""
-    
-    model = create_network()
-    
-    return model.output_shape
