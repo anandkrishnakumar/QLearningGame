@@ -16,9 +16,10 @@ def create_network():
     """Creates a new Keras network for Deep Q-learning."""
     model = keras.Sequential()
     model.add(keras.Input(shape=(X*Y,)))
-    model.add(layers.Dense(X*Y, activation='relu'))
-    model.add(layers.Dense(len(actions), activation='linear'))
+    model.add(layers.Dense(100, activation='relu'))
+    model.add(layers.Dense(100, activation='relu'))
+    model.add(layers.Dense(len(actions)))
     
-    model.compile(loss="mean_squared_error", optimizer='rmsprop')
+    model.compile(loss="mse", optimizer='adam')
     
     return model

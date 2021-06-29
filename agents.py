@@ -14,6 +14,8 @@ import numpy as np
 from config import X, Y, actions
 import deepQ
 
+from tensorflow.keras.models import load_model
+
 ############################################
 ################## AGENTS ##################
 ############################################
@@ -35,12 +37,24 @@ class Agent:
         trophy = trophy[0][0]*Y + trophy[1][0]
         return (car, trophy)
     
+    def time_until_epsilon_min(self, epsilon_decrement, epsilon_min):
+        """Just a helper function to calculate time until epsilon reaches min."""
+        
+        return np.log(epsilon_min)/np.log(epsilon_decrement)
+    
+    
+##############################################################################
+    
 class QAgent(Agent):
     """Q-learning agent"""
     
     def __init__(self):
         super().__init__()
-        self.Q = np.zeros((X*Y, X*Y, 4)) # first dim is car position, second is trophy,third is actions
+        self.Q = np.zeros((X*Y, X*Y, 4))
+        # first dim is car position, second is trophy,third is actions
+        
+        self.epsilon_decrement = 0.996
+        self.epsilon_min = 0.01
     
     def action(self, state, weird=False):
         """Returns an action for a given state."""
@@ -66,58 +80,48 @@ class QAgent(Agent):
             self.Q[car, trophy, action] += self.alpha * (reward + self.discount*max(self.Q[carnew, trophynew]) - self.Q[car, trophy, action])
         elif success:
             self.Q[car, trophy, action] = reward
-            self.epsilon -= 0.005
+            self.epsilon = self.epsilon*self.epsilon_decrement if self.epsilon > \
+                self.epsilon_min else self.epsilon_min
         # update Q value at state_pos[0], state_pos[1]
         # print("Q updated")
         
         
 
-############################################################################
-
-
-
+##############################################################################
     
 class DeepAgent(Agent):
     """Deep Q-learning agent"""
     
     def __init__(self):
         super().__init__()
-        self.hist_net = deepQ.create_network()
-        self.target_net = deepQ.create_network()
-        self.target_net.set_weights(self.hist_net.get_weights())
-        self.BUFFER = 2 # copy target_net to hist_net
-        self.buffer_count = 0
         
-        self.TRAIN_BUFFER = 1 # train network after these many moves
-        self.train_buffer_count = 0
-        self.states = np.zeros((self.TRAIN_BUFFER, X, Y))
-        self.actions = [i for i in range(self.TRAIN_BUFFER)]
-        self.rewards = np.zeros(self.TRAIN_BUFFER)
-        self.new_states = np.zeros((self.TRAIN_BUFFER, X, Y))
-        # self.successes = [i for i in range(self.TRAIN_BUFFER)]
-        self.successes = np.zeros(self.TRAIN_BUFFER)
-        pass
-    
-    def prep_states(self, states):
-        """Flattens states."""
-        if len(states.shape) == 3:
-            num_states = states.shape[0]
-        else:
-            num_states = 1
-        return states.reshape(num_states, X*Y)
-    
-    def buffer_stuff(self):
-        """Handles updation of neural network."""
-        self.buffer_count += 1
-        if self.buffer_count == self.BUFFER:
-            self.hist_net.set_weights(self.target_net.get_weights()) 
-            self.buffer_count = 0
-            print("buffer cleared")
+        self.targ_net = deepQ.create_network()
+        self.store_counter = 0
+        self.STORE_LIMIT = 50
+        self.train_counter = 0
+        self.TRAIN_COUNT = 25 # train after every 20 actions
         
-    
+        # storage for training
+        self.state_store = np.zeros((self.STORE_LIMIT , X*Y))
+        self.new_state_store = np.zeros((self.STORE_LIMIT , X*Y))
+        self.action_store = np.zeros(self.STORE_LIMIT, dtype=np.int32)
+        self.reward_store = np.zeros(self.STORE_LIMIT)
+        self.success_store = np.zeros(self.STORE_LIMIT)
+        
+        
+        # epsilon stuff
+        self.epsilon_decrement = 0.985
+        self.epsilon_min = 0.01
+        
+        # to save trained model
+        self.network_fname = r"trained_model//model.h5"
+        
     def action(self, state, weird=False):
-        """Returns an action for a given state."""
-        value_func = self.target_net.predict(self.prep_states(state))
+        """
+        Takes an action for a given state. 
+        Can be random/ideal depending on epsilon.
+        """
+        value_func = self.targ_net.predict(state.reshape((1, X*Y)), batch_size=1)[0]
         ideal = np.argmax(value_func)
         uni = np.random.uniform()
         if (uni <= self.epsilon) or weird: # weird means choose a random action
@@ -126,58 +130,69 @@ class DeepAgent(Agent):
             return self.actions_opp[ideal]
         
     def train(self, state, action, reward, new_state, success):
-        """Stores history and starts training if 
-        training buffer has been reached."""
+        """
+        Trains the bot.
         
-        # update training buffer
-        if self.train_buffer_count < self.TRAIN_BUFFER - 1:
-            self.train_buffer_count += 1
-        else:
+        First, it calculates the updated Qvalue for the given data tuple using
+        the Bellman equation. Then it stores this updated Qvalue and the state.
+        
+        Secondly, the train counter is incremented. If the train counter has
+        reached its limit, the model is trained by calling train_do, and the 
+        counter is reset.        
+        """
+        
+        # store state & updated Qvals
+        self.save_dat(state, action, reward, new_state, success)
+        self.store_counter += 1
+        
+        self.train_counter += 1
+        if self.train_counter == self.TRAIN_COUNT:
             self.train_do()
-            self.train_buffer_count = 0
-        
-        action = self.actions_map[action]
-        index = self.train_buffer_count
-        self.states[index] = state
-        self.actions[index] = action
-        self.rewards[index] = reward
-        self.new_states[index] = new_state
-        self.successes[index] = success
+            self.train_counter = 0
     
     def train_do(self):
-        """Trains the bot once TRAIN_BUFFER is reached."""
+        """
+        Actually implements training of the neural network.
         
-        # get current Q-value for given state and for each action from hist_net
-        Qvals = self.target_net.predict(self.prep_states(np.stack(self.states)))
-        future_Qvals = self.hist_net.predict(self.prep_states(np.stack(self.new_states)))
+        It draws a random sample of stored data to train on.
+        Then, the neural network is fit on the sampled training data.
+        """
         
-        ### for debugging
-        print(Qvals)
-        
-        # update the Q-value for chosen action
-        for count in range(self.TRAIN_BUFFER):
-            action = self.actions[count]
-            print(action)
-            if not self.successes[count]:
-                Qvals[count, action] += (self.alpha 
-                                       * (self.rewards[count] 
-                                          + self.discount*max(future_Qvals[count]) 
-                                          - Qvals[count, action])
-                                       )
-                # train target_net with input as state and output as updated Q_values                    
-            elif self.successes[count]:
-                Qvals[count, action] = self.rewards[count]
-                
-                
-        self.target_net.fit(self.prep_states(np.stack(self.states)), Qvals)
+        # takes a random set of stored data
+        max_store = min(self.STORE_LIMIT, self.store_counter)
+        train_indices = np.random.choice(max_store, 
+                                         size=self.TRAIN_COUNT)
+        train_states = self.state_store[train_indices]
+        train_new_states = self.new_state_store[train_indices]
+        train_action = self.action_store[train_indices]
+        train_reward = self.reward_store[train_indices]
+        train_success = self.success_store[train_indices]
         
         
-        ### debugging
-        print(Qvals)
-        print(self.target_net.predict(self.prep_states(np.stack(self.states))))
+        Qvals = self.targ_net.predict(train_states)
+        new_Qvals = self.targ_net.predict(train_new_states) # of next states
+        batch_index = np.arange(self.TRAIN_COUNT, dtype=np.int32)
+        Qvals[batch_index, train_action] = train_reward +  \
+            self.alpha * np.max(new_Qvals, axis=1) * train_success
         
-        self.epsilon -= 0.001
-        print("epsilon", self.epsilon)
-        # update Q value at state_pos[0], state_pos[1]
-        # print("Q updated")
-        self.buffer_stuff()
+        # train the NN with states & updated Qvals
+        self.targ_net.fit(train_states, Qvals)
+        
+        self.epsilon = self.epsilon*self.epsilon_decrement if self.epsilon > \
+            self.epsilon_min else self.epsilon_min
+        
+    def save_dat(self, state, action, reward, new_state, success):
+        save_index = self.store_counter % self.STORE_LIMIT
+        self.state_store[save_index] = state.flatten()
+        self.new_state_store[save_index] = state.flatten()
+        self.action_store[save_index] = self.actions_map[action]
+        self.reward_store[save_index] = reward
+        self.success_store[save_index] = success
+        
+    def save_network(self):
+        """Helper function to save trained model."""
+        self.targ_net.save(self.network_fname)
+        
+    def load_network(self):
+        """Helper function to load trained model."""
+        self.targ_net = load_model(self.network_fname)        
