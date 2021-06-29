@@ -121,7 +121,8 @@ class DeepAgent(Agent):
         Takes an action for a given state. 
         Can be random/ideal depending on epsilon.
         """
-        value_func = self.targ_net.predict(state.reshape((1, X*Y)), batch_size=1)[0]
+        # value_func = self.targ_net.predict(state.reshape((1, X*Y)), batch_size=1)[0]
+        value_func = np.array(self.targ_net(state.reshape((1, X*Y)))[0])
         ideal = np.argmax(value_func)
         uni = np.random.uniform()
         if (uni <= self.epsilon) or weird: # weird means choose a random action
@@ -169,8 +170,10 @@ class DeepAgent(Agent):
         train_success = self.success_store[train_indices]
         
         
-        Qvals = self.targ_net.predict(train_states)
-        new_Qvals = self.targ_net.predict(train_new_states) # of next states
+        # Qvals = self.targ_net.predict(train_states)
+        # new_Qvals = self.targ_net.predict(train_new_states) # of next states
+        Qvals = np.array(self.targ_net(train_states.reshape(self.TRAIN_COUNT, X*Y)))
+        new_Qvals = np.array(self.targ_net(train_new_states.reshape(self.TRAIN_COUNT, X*Y)))
         batch_index = np.arange(self.TRAIN_COUNT, dtype=np.int32)
         Qvals[batch_index, train_action] = train_reward +  \
             self.alpha * np.max(new_Qvals, axis=1) * train_success

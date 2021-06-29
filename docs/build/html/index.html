@@ -1,17 +1,18 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Welcome to QLearningGame’s documentation! &#8212; QLearningGame 0.0 documentation</title>
-    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pyramid.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -31,7 +32,8 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">QLearningGame 0.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">QLearningGame 0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to QLearningGame’s documentation!</a></li> 
       </ul>
     </div>  
 
@@ -40,7 +42,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="welcome-to-qlearninggame-s-documentation">
+  <section id="welcome-to-qlearninggame-s-documentation">
 <h1>Welcome to QLearningGame’s documentation!<a class="headerlink" href="#welcome-to-qlearninggame-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
@@ -53,9 +55,9 @@ various plots.</p>
 <li><p>train_time - to plot the time taken to train an agent</p></li>
 </ul>
 </div></blockquote>
-<dl class="function">
-<dt id="plots.train_time">
-<code class="sig-prename descclassname">plots.</code><code class="sig-name descname">train_time</code><span class="sig-paren">(</span><em class="sig-param">times_taken</em><span class="sig-paren">)</span><a class="headerlink" href="#plots.train_time" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="plots.train_time">
+<span class="sig-prename descclassname"><span class="pre">plots.</span></span><span class="sig-name descname"><span class="pre">train_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times_taken</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#plots.train_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>2D plot: iterations vs. cumulative training time.</p>
 </dd></dl>
 
@@ -66,9 +68,9 @@ various plots.</p>
 <li><p>test - to test an agent</p></li>
 </ul>
 </div></blockquote>
-<dl class="function">
-<dt id="tests.test">
-<code class="sig-prename descclassname">tests.</code><code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param">Game</em>, <em class="sig-param">agent</em>, <em class="sig-param">init=None</em>, <em class="sig-param">weird=False</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.test" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test">
+<span class="sig-prename descclassname"><span class="pre">tests.</span></span><span class="sig-name descname"><span class="pre">test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Game</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weird</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tests.test" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tests an agent.</p>
 </dd></dl>
 
@@ -83,49 +85,81 @@ different types of learning algorithms</p>
 <li><p>DeepAgent - deep Q-learning agent</p></li>
 </ul>
 </div></blockquote>
-<dl class="class">
-<dt id="agents.Agent">
-<em class="property">class </em><code class="sig-prename descclassname">agents.</code><code class="sig-name descname">Agent</code><a class="headerlink" href="#agents.Agent" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="agents.Agent">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">agents.</span></span><span class="sig-name descname"><span class="pre">Agent</span></span><a class="headerlink" href="#agents.Agent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parent agent class</p>
-<dl class="method">
-<dt id="agents.Agent.get_pos">
-<code class="sig-name descname">get_pos</code><span class="sig-paren">(</span><em class="sig-param">state</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.Agent.get_pos" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="agents.Agent.get_pos">
+<span class="sig-name descname"><span class="pre">get_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agents.Agent.get_pos" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets position of car, trophy as int type.</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="agents.Agent.time_until_epsilon_min">
+<span class="sig-name descname"><span class="pre">time_until_epsilon_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsilon_decrement</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon_min</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agents.Agent.time_until_epsilon_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just a helper function to calculate time until epsilon reaches min.</p>
 </dd></dl>
 
-<dl class="class">
-<dt id="agents.DeepAgent">
-<em class="property">class </em><code class="sig-prename descclassname">agents.</code><code class="sig-name descname">DeepAgent</code><a class="headerlink" href="#agents.DeepAgent" title="Permalink to this definition">¶</a></dt>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="agents.DeepAgent">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">agents.</span></span><span class="sig-name descname"><span class="pre">DeepAgent</span></span><a class="headerlink" href="#agents.DeepAgent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deep Q-learning agent</p>
-<dl class="method">
-<dt id="agents.DeepAgent.action">
-<code class="sig-name descname">action</code><span class="sig-paren">(</span><em class="sig-param">state</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.DeepAgent.action" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an action for a given state.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="agents.DeepAgent.action">
+<span class="sig-name descname"><span class="pre">action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weird</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agents.DeepAgent.action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes an action for a given state. 
+Can be random/ideal depending on epsilon.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="agents.DeepAgent.train">
-<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">action</em>, <em class="sig-param">reward</em>, <em class="sig-param">new_state</em>, <em class="sig-param">success</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.DeepAgent.train" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="agents.DeepAgent.load_network">
+<span class="sig-name descname"><span class="pre">load_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#agents.DeepAgent.load_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper function to load trained model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="agents.DeepAgent.save_network">
+<span class="sig-name descname"><span class="pre">save_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#agents.DeepAgent.save_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper function to save trained model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="agents.DeepAgent.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">success</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agents.DeepAgent.train" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the bot.</p>
+<p>First, it calculates the updated Qvalue for the given data tuple using
+the Bellman equation. Then it stores this updated Qvalue and the state.</p>
+<p>Secondly, the train counter is incremented. If the train counter has
+reached its limit, the model is trained by calling train_do, and the 
+counter is reset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="agents.DeepAgent.train_do">
+<span class="sig-name descname"><span class="pre">train_do</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#agents.DeepAgent.train_do" title="Permalink to this definition">¶</a></dt>
+<dd><p>Actually implements training of the neural network.</p>
+<p>It draws a random sample of stored data to train on.
+Then, the neural network is fit on the sampled training data.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="agents.QAgent">
-<em class="property">class </em><code class="sig-prename descclassname">agents.</code><code class="sig-name descname">QAgent</code><a class="headerlink" href="#agents.QAgent" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="agents.QAgent">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">agents.</span></span><span class="sig-name descname"><span class="pre">QAgent</span></span><a class="headerlink" href="#agents.QAgent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Q-learning agent</p>
-<dl class="method">
-<dt id="agents.QAgent.action">
-<code class="sig-name descname">action</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">weird=False</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.QAgent.action" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="agents.QAgent.action">
+<span class="sig-name descname"><span class="pre">action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weird</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agents.QAgent.action" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an action for a given state.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="agents.QAgent.train">
-<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">action</em>, <em class="sig-param">reward</em>, <em class="sig-param">new_state</em>, <em class="sig-param">success</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.QAgent.train" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="agents.QAgent.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">success</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agents.QAgent.train" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the bot.</p>
 </dd></dl>
 
@@ -135,25 +169,25 @@ different types of learning algorithms</p>
 <p>This file contains the game defintions.</p>
 <p>Work in progress. At the moment, this
 only contains one game.</p>
-<dl class="class">
-<dt id="games.Game">
-<em class="property">class </em><code class="sig-prename descclassname">games.</code><code class="sig-name descname">Game</code><a class="headerlink" href="#games.Game" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="games.Game">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">games.</span></span><span class="sig-name descname"><span class="pre">Game</span></span><a class="headerlink" href="#games.Game" title="Permalink to this definition">¶</a></dt>
 <dd><p>Game class</p>
-<dl class="method">
-<dt id="games.Game.get_state">
-<code class="sig-name descname">get_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#games.Game.get_state" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="games.Game.get_state">
+<span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#games.Game.get_state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns current state.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="games.Game.play">
-<code class="sig-name descname">play</code><span class="sig-paren">(</span><em class="sig-param">action</em><span class="sig-paren">)</span><a class="headerlink" href="#games.Game.play" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="games.Game.play">
+<span class="sig-name descname"><span class="pre">play</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#games.Game.play" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates state, given an action.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="games.Game.set_state">
-<code class="sig-name descname">set_state</code><span class="sig-paren">(</span><em class="sig-param">state</em><span class="sig-paren">)</span><a class="headerlink" href="#games.Game.set_state" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="games.Game.set_state">
+<span class="sig-name descname"><span class="pre">set_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#games.Game.set_state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set game state explicitly.</p>
 </dd></dl>
 
@@ -162,23 +196,24 @@ only contains one game.</p>
 <span class="target" id="module-train"></span><p>Training</p>
 <p>This file contains a function that can be used
 to train an agent, given a game.</p>
-<dl class="function">
-<dt id="train.train">
-<code class="sig-prename descclassname">train.</code><code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">Game</em>, <em class="sig-param">agent</em>, <em class="sig-param">episodes=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#train.train" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="train.train">
+<span class="sig-prename descclassname"><span class="pre">train.</span></span><span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Game</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">episodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#train.train" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains given agent to play the given game.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="indices-and-tables">
+</section>
+<section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -220,12 +255,13 @@ to train an agent, given a game.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">QLearningGame 0.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">QLearningGame 0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to QLearningGame’s documentation!</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Anand Krishnakumar.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
     </div>
   </body>
 </html>
