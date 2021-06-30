@@ -63,14 +63,14 @@ class Game:
         pos[1] = max(0, pos[1])
         pos[1] = min(Y-1, pos[1])
         # negative reward for invalid moves
-        reward = -10*np.any(np.array(pos) != np.array(unadjusted_pos))
+        reward = -50*np.any(np.array(pos) != np.array(unadjusted_pos))
         # penalise number of moves
-        reward = -self.moves
+        reward -= self.moves
         pos = (np.array([pos[0]]), np.array([pos[1]]))
         if self.state[pos] == 2:
             # print("Success!")
             self.success = True
-            reward = 10
+            reward = 100
             return reward
         else:
             self.state[pos] = 1

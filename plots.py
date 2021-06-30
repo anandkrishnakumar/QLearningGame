@@ -19,3 +19,11 @@ def train_time(times_taken):
     plt.ylabel("Cumulative time taken (s)")
     plt.title("Training time")
     plt.show()
+    
+def plot_conv_filter(agent):
+    filters, bias = agent.targ_net.layers[1].get_weights()
+    # normalize filter values to 0-1 so we can visualize them
+    f_min, f_max = filters.min(), filters.max()
+    filters = (filters - f_min) / (f_max - f_min)
+    f = filters.reshape(2, 2)
+    plt.imshow(f, cmap='gray')

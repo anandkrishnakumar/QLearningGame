@@ -23,7 +23,7 @@ class Agent:
     """Parent agent class"""
     
     def __init__(self):
-        self.alpha = 0.8
+        self.alpha = 0.995
         self.discount = 0.8
         self.actions_map = {'l': 0, 'r': 1, 'u': 2, 'd': 3}
         self.actions_opp = {0: 'l', 1: 'r', 2: 'u', 3: 'd'}
@@ -96,10 +96,14 @@ class DeepAgent(Agent):
         super().__init__()
         
         self.targ_net = deepQ.create_network()
+        self.hist_net = deepQ.create_network()
+        self.hist_net.set_weights(self.targ_net.get_weights())
         self.store_counter = 0
         self.STORE_LIMIT = 50
         self.train_counter = 0
         self.TRAIN_COUNT = 25 # train after every 20 actions
+        self.transfer_counter = 0
+        self.TRANSFER_COUNT = 1 # transfer weights from target to hist after every 5 trainings
         
         # storage for training
         self.state_store = np.zeros((self.STORE_LIMIT , X*Y))
@@ -107,10 +111,12 @@ class DeepAgent(Agent):
         self.action_store = np.zeros(self.STORE_LIMIT, dtype=np.int32)
         self.reward_store = np.zeros(self.STORE_LIMIT)
         self.success_store = np.zeros(self.STORE_LIMIT)
+        # self.pos_store = np.zeros((self.STORE_LIMIT, 2))
+        # self.new_pos_store = np.zeros((self.STORE_LIMIT, 2))
         
         
         # epsilon stuff
-        self.epsilon_decrement = 0.985
+        self.epsilon_decrement = 0.9996
         self.epsilon_min = 0.01
         
         # to save trained model
@@ -123,6 +129,8 @@ class DeepAgent(Agent):
         """
         # value_func = self.targ_net.predict(state.reshape((1, X*Y)), batch_size=1)[0]
         value_func = np.array(self.targ_net(state.reshape((1, X*Y)))[0])
+        # pos = self.prep_state(state)
+        # value_func = np.array(self.targ_net(pos.reshape((1, 2)))[0])
         ideal = np.argmax(value_func)
         uni = np.random.uniform()
         if (uni <= self.epsilon) or weird: # weird means choose a random action
@@ -150,6 +158,15 @@ class DeepAgent(Agent):
         if self.train_counter == self.TRAIN_COUNT:
             self.train_do()
             self.train_counter = 0
+            self.transfer_counter += 1
+            if self.transfer_counter == self.TRANSFER_COUNT:
+                self.hist_net.set_weights(self.targ_net.get_weights())
+                self.transfer_counter = 0
+        
+        if success:
+            self.epsilon = self.epsilon*self.epsilon_decrement if self.epsilon > \
+                self.epsilon_min else self.epsilon_min
+            
     
     def train_do(self):
         """
@@ -168,21 +185,24 @@ class DeepAgent(Agent):
         train_action = self.action_store[train_indices]
         train_reward = self.reward_store[train_indices]
         train_success = self.success_store[train_indices]
-        
+        # train_pos = self.pos_store[train_indices]
+        # train_new_pos = self.new_pos_store[train_indices]
         
         # Qvals = self.targ_net.predict(train_states)
         # new_Qvals = self.targ_net.predict(train_new_states) # of next states
         Qvals = np.array(self.targ_net(train_states.reshape(self.TRAIN_COUNT, X*Y)))
-        new_Qvals = np.array(self.targ_net(train_new_states.reshape(self.TRAIN_COUNT, X*Y)))
+        new_Qvals = np.array(self.hist_net(train_new_states.reshape(self.TRAIN_COUNT, X*Y)))
+        # Qvals = np.array(self.targ_net(train_pos.reshape(self.TRAIN_COUNT, 2)))
+        # new_Qvals = np.array(self.hist_net(train_new_pos.reshape(self.TRAIN_COUNT, 2)))
         batch_index = np.arange(self.TRAIN_COUNT, dtype=np.int32)
         Qvals[batch_index, train_action] = train_reward +  \
             self.alpha * np.max(new_Qvals, axis=1) * train_success
         
         # train the NN with states & updated Qvals
+        # self.targ_net.fit(train_states, Qvals)
         self.targ_net.fit(train_states, Qvals)
         
-        self.epsilon = self.epsilon*self.epsilon_decrement if self.epsilon > \
-            self.epsilon_min else self.epsilon_min
+
         
     def save_dat(self, state, action, reward, new_state, success):
         save_index = self.store_counter % self.STORE_LIMIT
@@ -191,6 +211,11 @@ class DeepAgent(Agent):
         self.action_store[save_index] = self.actions_map[action]
         self.reward_store[save_index] = reward
         self.success_store[save_index] = success
+        # self.pos_store[save_index] = self.prep_state(state)
+        # if not success:
+        #     self.new_pos_store[save_index] = self.prep_state(new_state)
+        # else:
+        #     self.new_pos_store[save_index] = self.prep_state(state)
         
     def save_network(self):
         """Helper function to save trained model."""
@@ -198,4 +223,8 @@ class DeepAgent(Agent):
         
     def load_network(self):
         """Helper function to load trained model."""
-        self.targ_net = load_model(self.network_fname)        
+        self.targ_net = load_model(self.network_fname) 
+        
+    def prep_state(self, state):
+        """Helper function to retrieve position info from a state"""
+        return np.array(self.get_pos(state))

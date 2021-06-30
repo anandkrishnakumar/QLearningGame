@@ -10,6 +10,10 @@ import time
 def train(Game, agent, episodes=1000):
     """Trains given agent to play the given game."""
     a = agent
+    # eps_start = a.epsilon
+    # eps_end = a.epsilon_min
+    # eps_dec = np.exp(1/episodes * np.log(eps_end/eps_start))
+    # a.epsilon_decrement = eps_dec
     times_taken = np.zeros(episodes)
     print("Training starting")
     for n in range(episodes):
