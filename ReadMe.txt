@@ -1,3 +1,3 @@
 QLearningGame
 
-Author: Anand Krishnakumar
+Author: Anand Krishnakumar, Jose Sebastian
